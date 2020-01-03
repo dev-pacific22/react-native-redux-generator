@@ -1,0 +1,15 @@
+{
+  "label_username": "Username",
+  "label_password": "Password",
+  "label_empty_username": "Please enter username",
+  "label_empty_password": "Please enter password",
+  "label_forgot": "Forgot Password?",
+  "label_sign_in": "Sign In",
+  "label_sign_up": "Sign Up",
+  "error_incorrect_password": "Your entered wrong Password",
+  "label_old_password_message": "Please enter your old password",
+  "label_new_password_message": "Please enter your new password",
+  "label_confirm_password_message": "Please confirm password",
+  "label_password_length_warning": "Password length should be at least of 8 characters",
+  "label_mismatch": "Password mismatch"
+}

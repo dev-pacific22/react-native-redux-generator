@@ -1,0 +1,24 @@
+{
+  "name": "generator-react-native-redux",
+  "version": "1.0.0",
+  "description": "The generator for react-native with redux.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "generators"
+  ],
+  "keywords": [
+    "yeoman-generator",
+    "react",
+    "react-native",
+    "redux",
+    "redux-thunk"
+  ],
+  "author": "Bhagwat Karankar",
+  "license": "MIT",
+  "dependencies": {
+    "yeoman-generator": "^4.4.0"
+  }
+}
