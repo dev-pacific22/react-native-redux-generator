@@ -1,0 +1,1 @@
+export default API_TIME_OUT = 4000;

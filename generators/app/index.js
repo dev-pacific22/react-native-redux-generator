@@ -11,12 +11,12 @@ module.exports = class extends Generator {
     const config = this.fs.readJSON(this.destinationPath("package.json"));
 
     this.answers = await this.prompt([
-      {
-        type: "list",
-        name: "type",
-        message: "What shall we create today?",
-        choices: ["screen", "redux-module"]
-      },
+      // {
+      //   type: "list",
+      //   name: "type",
+      //   message: "What shall we create today?",
+      //   choices: ["screen", "redux-module"]
+      // },
       {
         type: "input",
         name: "name",
@@ -42,7 +42,9 @@ module.exports = class extends Generator {
         // redux: dependencies
         "react-redux",
         "redux",
-        "redux-thunk"
+        "redux-thunk",
+        // network handling
+        "axios"
       ],
       { cwd: this.destinationRoot() }
     );
