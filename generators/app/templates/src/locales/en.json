@@ -1,8 +1,8 @@
 {
   "label_username": "Username",
   "label_password": "Password",
-  "label_empty_username": "Please enter username",
-  "label_empty_password": "Please enter password",
+  "error_valid_username": "Please enter valid username",
+  "error_valid_password": "Please enter valid password",
   "label_forgot": "Forgot Password?",
   "label_sign_in": "Sign In",
   "label_sign_up": "Sign Up",

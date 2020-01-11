@@ -1,14 +1,14 @@
 import i18n from "i18n-js";
-import memoize from "lodash.memoize";
+import loadash from "lodash";
 
 export const translationGetters = {
-  en: () => require("./en.json.js.js"),
-  es: () => require("./fr.json.js.js")
+  en: () => require("./en.json"),
+  es: () => require("./fr.json")
 };
 /**
  * Get string according to current locale.
  */
-export const translate = memoize(
+export const translate = loadash.memoize(
   (key, config) => i18n.t(key, config),
   (key, config) => (config ? key + JSON.stringify(config) : key)
 );

@@ -42,9 +42,11 @@ module.exports = class extends Generator {
         // redux: dependencies
         "react-redux",
         "redux",
-        "redux-thunk",
-        // network handling
-        "axios"
+        "redux-thunk",   
+        "axios", // network dependencies
+        // The UI dependencies
+        "native-base",
+        "validator"
       ],
       { cwd: this.destinationRoot() }
     );
