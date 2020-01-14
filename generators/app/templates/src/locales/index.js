@@ -13,7 +13,7 @@ export const translate = loadash.memoize(
   (key, config) => (config ? key + JSON.stringify(config) : key)
 );
 
-//set locale 
+//set locale
 export const setI18nConfig = (language = "en") => {
   translate.cache.clear();
   i18n.translations = { [language]: translationGetters[language]() };

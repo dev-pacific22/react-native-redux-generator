@@ -1,8 +1,11 @@
 import{SIGN_IN_CLICKED, SIGN_IN_SUCCESS, SIGN_IN_FAILED}  from  "../action/types";
+import { translate } from "../locales";
+import { CONSTANTS, AUTH_STATUS } from "../utils";
 
 const initialState = {
 message : "I am from reducers and initial state", 
-isLoggedIn : false,
+isSignInSuccess : false,
+authStatus: ""
 }; 
 
 export default (state = initialState, {type, payload}) => {
@@ -15,11 +18,12 @@ export default (state = initialState, {type, payload}) => {
   
           case SIGN_IN_SUCCESS: 
           return {
-              ...state,   isLoggedIn:true, message:payload.data.firstName
+              ...state,   isSignInSuccess:true, authStatus: AUTH_STATUS.SUCCESS, message: translate("message_auth_success")
+
           }
           case SIGN_IN_FAILED: 
           return {
-              ...state, isLoggedIn:false, message:payload.message
+              ...state, isSignInSuccess:false, authStatus: AUTH_STATUS.FAILED,  message:payload.message
           }
       default:
           return state; 
