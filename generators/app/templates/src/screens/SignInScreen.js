@@ -8,7 +8,7 @@ import FloatingInput from "../components/FloatingInput";
 import CheckBox from "../components/CheckBoxInput";
 import { signInAction } from "../action/SignInAction";
 import { translate } from "../locales/index";
-import { CONSTANTS, AUTH_STATUS } from "../utils";
+import { CONSTANTS, AUTH_STATUS, toastService } from "../utils";
 
 class SignInScreen extends Component {
   constructor(props) {
@@ -81,19 +81,16 @@ class SignInScreen extends Component {
     }
   };
   componentDidUpdate() {
-    const{authStatus} = this.props;
+    const{authStatus, message} = this.props;
 
     switch (authStatus) {
       case AUTH_STATUS.SUCCESS:
+        toastService.showToast(message);
         this.props.navigation.navigate("Dashboard");
         break;
         case AUTH_STATUS.FAILED:
-          Toast.show({
-            text: "Login Failed! Try again",
-            buttonText: 'Okay',
-            duration: 5000,
-            type: 'danger'
-          })
+          toastService.showToast(message);
+          authStatus=""
           break;
       default:
         break;
