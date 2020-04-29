@@ -19,10 +19,23 @@ module.exports = class extends Generator {
       // },
       {
         type: "input",
-        name: "name",
-        message: "Enter the for your module",
-        default: config.name
-      }
+        name: "moduleName",
+        message: "Enter the name for your module",
+        default: config.name,
+      },
+      {
+        type: "input",
+        name: "theme",
+        message: "Do you need a native base theme for your project? y/n",
+        default: "n",
+      },
+      {
+        type: "input",
+        name: "unittest",
+        message:
+          "Do you basic unit testing setup with jest and enzyme for your project? y/n",
+        default: "n",
+      },
     ]);
   }
 
@@ -32,6 +45,7 @@ module.exports = class extends Generator {
         "babel-preset-react-native-stage-0",
         "react-navigation",
         "react-navigation-stack",
+        "react-native-screens",
         "react-native-gesture-handler",
         "react-native-safe-area-view",
         "react-native-safe-area-context",
@@ -39,17 +53,26 @@ module.exports = class extends Generator {
         "react-native-vector-icons",
         "i18n-js",
         "lodash",
+        "prop-types",
         // redux: dependencies
         "react-redux",
         "redux",
-        "redux-thunk",   
+        "redux-thunk",
         "axios", // network dependencies
         // The UI dependencies
         "native-base",
-        "validator"
+        "validator",
+        "react-native-loading-spinner-overlay",
+        "react-native-modal",
       ],
       { cwd: this.destinationRoot() }
     );
+    if (this.answers.unittest == "y") {
+      await this.yarnInstall(
+        ["enzyme", "enzyme-adapter-react-16", "react-dom"],
+        { dev: true }
+      );
+    }
     // this.spawnCommand('react-native', ['link']);
   }
 
@@ -57,16 +80,27 @@ module.exports = class extends Generator {
   writing() {
     this.log("Writing files... 📝");
     this.fs.delete(this.destinationPath("__tests__"));
-    this.fs.delete(this.destinationPath("App.js"));
 
     this.fs.copyTpl(
       this.templatePath("**/*.js"),
       this.destinationPath(""),
       this.answers
     );
-    this.fs.copy(this.templatePath("**/App.js"), this.destinationPath(""));
+
+    if (this.answers.theme == "y") {
+      this.fs.delete(this.destinationPath("App.js"));
+      this.fs.copy(
+        this.templatePath("src/AppTheme.js"),
+        this.destinationPath("src/App.js")
+      );
+      this.log("Written App theme....");
+    } else {
+      this.fs.copy(this.templatePath("**/App.js"), this.destinationPath(""));
+      this.log("Written App...");
+    }
     this.fs.copy(this.templatePath("**/*.json"), this.destinationPath(""));
     this.fs.copy(this.templatePath("**/*.png"), this.destinationPath(""));
+    this.fs.copy(this.templatePath("**/*.jpg"), this.destinationPath(""));
     // this.fs.copy(this.templatePath('**/*.gif'), this.destinationPath(''));
     // this.fs.copyTpl(
     //   this.templatePath('babelrc'),
@@ -76,6 +110,9 @@ module.exports = class extends Generator {
 
   // last stage
   end() {
+    if (this.answers.theme == "y") {
+      this.spawnCommand("node", ["node_modules/native-base/ejectTheme.js"]);
+    }
     this.log("Bye... 👋");
   }
 };
