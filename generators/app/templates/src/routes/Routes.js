@@ -1,8 +1,5 @@
-import {
-  createAppContainer,
-  createSwitchNavigator
-} from "react-navigation";
-import {createStackNavigator} from 'react-navigation-stack';
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
 import SignInScreen from "../screens/SignInScreen.js";
 import SignUpScreen from "../screens/SignUpScreen";
 
@@ -11,39 +8,35 @@ import DashboardScreen from "../screens/DashboardScreen";
 const AuthNavigator = createStackNavigator(
   {
     SignIn: SignInScreen,
-    SignUp: SignUpScreen
+    SignUp: SignUpScreen,
   },
-  { initialRouteParams: "SignIn" }
+  {
+    initialRouteParams: "SignIn",
+    headerMode: "none",
+  }
 );
 
 const DashboardNavigator = createStackNavigator(
   {
-    Dashboard: DashboardScreen
+    Dashboard: DashboardScreen,
   },
   {
-    initialRouteParams: "SignIn",
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: "#f4511e"
-      },
-      headerTintColor: "#fff",
-      headerTitleStyle: {
-        fontWeight: "bold"
-      }
-    }
+    initialRouteParams: "Dashboard",
+    headerMode: "none",
   }
 );
 
-const AppNavigator = createSwitchNavigator({
-  Auth: AuthNavigator,
-  Dashboard: DashboardNavigator
-}, 
-{
-    initialRouteParams: "Auth"
-}
-
+const AppNavigator = createSwitchNavigator(
+  {
+    Auth: AuthNavigator,
+    Dashboard: DashboardNavigator,
+  },
+  {
+    initialRouteParams: "Auth",
+    headerMode: "none",
+  }
 );
 
 const AppContainer = createAppContainer(AppNavigator);
 
-export default AppContainer
+export default AppContainer;

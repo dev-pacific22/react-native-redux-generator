@@ -8,11 +8,18 @@
   "label_remember_me": "Remember Me",
   "label_sign_in": "Sign In",
   "label_sign_up": "Sign Up",
-  "message_auth_success": "Login Successful",
+  "label_not_a_member" : "Not yet a member? ",
+  "message_sign_in_failed": "Login Failed, Try Again",
+  "message_sign_in_success": "Login Successful",
   "error_incorrect_password": "Your entered wrong Password",
   "label_old_password_message": "Please enter your old password",
   "label_new_password_message": "Please enter your new password",
   "label_confirm_password_message": "Please confirm password",
   "label_password_length_warning": "Password length should be at least of 8 characters",
-  "label_mismatch": "Password mismatch"
+  "label_mismatch": "Password mismatch",
+  "label_title_alert" : "Alert!",
+  "label_button_ok":"OK",
+  "label_button_cancel":"Cancel",
+  "label_success":"Success",
+  "label_failed":"Failed"
 }

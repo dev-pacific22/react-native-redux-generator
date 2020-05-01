@@ -1,28 +1,29 @@
 import React, { Component } from "react";
-import { StyleSheet, ActivityIndicator } from "react-native";
-import { Container, Content, View, Text, Button, Card, Root, Toast } from "native-base";
+import { StyleSheet, ActivityIndicator, Image, ScrollView } from "react-native";
+import { Container, View, Text, Button, Root } from "native-base";
+import Spinner from "react-native-loading-spinner-overlay";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import validator from "validator";
-import FloatingInput from "../components/FloatingInput";
-import CheckBox from "../components/CheckBoxInput";
-import { signInAction } from "../action/SignInAction";
+import { FloatingInput, CheckBoxInput, CustomAlert } from "../components";
+import { AuthWrapper } from "../hoc/AuthHOC";
+import { signInAction,resetAction } from "../action/SignInAction";
 import { translate } from "../locales/index";
-import { CONSTANTS, AUTH_STATUS, toastService } from "../utils";
+import { assets } from "../assets";
+import { CONSTANTS, AUTH_STATUS, toastService, Colors } from "../utils";
 
 class SignInScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: "",
+      username: "test",
+      password: "test",
       loading: false,
       isRememberMe: false,
-      isRememberMe: false,
-      errors: {}
+      errors: {},
     };
   }
-  redirectTo = screen => {
+  redirectTo = (screen) => {
     switch (screen) {
       case "SignUp":
         this.props.navigation.navigate("SignUp");
@@ -52,15 +53,44 @@ class SignInScreen extends Component {
     const { username, password } = this.state;
     const errors = {};
 
-    if (validator.isEmpty(username)) { // to check as email we can make it as validator.isEmail(username)
+    if (validator.isEmpty(username)) {
+      // to check as email we can make it as validator.isEmail(username)
       errors.hasErrorUsername = true;
       errors.errorMessageUsername = translate("error_valid_username");
     }
-    if (!CONSTANTS.REGEX.PASSWORD_REGEX.test(password)) {
+    // if (!CONSTANTS.REGEX.PASSWORD_REGEX.test(password)) {
+    if (validator.isEmpty(password)) {
       errors.hasErrorPassword = true;
       errors.errorMessagePassword = translate("error_valid_password");
     }
     return errors;
+  };
+
+
+  handleResponseModal = (authStatus, message) => {
+    switch (authStatus) {
+      case AUTH_STATUS.SUCCESS:
+        return (
+          <CustomAlert
+            title={translate('label_success')}
+            message={message ? message : translate('message_sign_in_success')}
+            confirmText={translate('label_button_ok')}
+            onConfirmPressed={() => {
+              this.props.resetAction();
+              this.props.navigation.navigate('Dashboard');
+            }}
+            onCa
+          />
+        );
+      case AUTH_STATUS.FAILED:
+        return (
+          <CustomAlert
+            title={translate('label_failed')}
+            message={message ? message : translate('message_sign_in_failed')}
+            confirmText={translate('label_button_ok')}
+          />
+        );
+    }
   };
 
   signInClicked = () => {
@@ -68,173 +98,165 @@ class SignInScreen extends Component {
     this.setState({ errors });
 
     if (Object.keys(errors).length === 0) {
-      this.setState({ loading: true });
+      // this.setState({ loading: true });
       const { username, password } = this.state;
       // If there are multiple parallel calls put all over here.
       Promise.all([
-        this.props.signInAction(username, password)
+        this.props.signInAction(username, password),
         // this.props.signInAction(username, password)
       ]).then(() => {
         //We can do final stuff like stop loader here
-        this.setState({ loading: false });
+        // this.setState({ loading: false });
       });
     }
   };
   componentDidUpdate() {
-    const{authStatus, message} = this.props;
+    const { authStatus, message } = this.props;
 
     switch (authStatus) {
       case AUTH_STATUS.SUCCESS:
-        toastService.showToast(message);
-        this.props.navigation.navigate("Dashboard");
+        // this.props.navigation.navigate("Dashboard");
         break;
-        case AUTH_STATUS.FAILED:
-          toastService.showToast(message);
-          authStatus=""
-          break;
+      case AUTH_STATUS.FAILED:
+        // toastService.showToast(message);
+        break;
       default:
         break;
     }
-
   }
   render() {
-    const { username, password, loading, isRememberMe } = this.state;
+    const { username, password, isRememberMe } = this.state;
     const {
       hasErrorUsername,
       errorMessageUsername,
       hasErrorPassword,
-      errorMessagePassword
+      errorMessagePassword,
     } = this.state.errors;
-    
+    const { loading, message, authStatus } = this.props;
+
     return (
-      <Root>
-      <Container>
-        <Content contentContainerStyle={styles.container}>
-          <Card style={styles.cardStyle}>
+      <ScrollView contentContainerStyle={styles.container}>
+        {authStatus != '' && this.handleResponseModal(authStatus, message)}
+        <View style={styles.logoContainer}>
+          <Image style={{ height: 100, width: 100 }} source={assets.app_logo} />
+          <Text>{translate("label_sign_in")}</Text>
+        </View>
+        <View styles={styles.inputContainer}>
+          <Spinner visible={loading} styles={styles.spinnerStyle} />
+
+          <FloatingInput
+            name={"username"}
+            placeHolder={translate("label_username")}
+            iconName="account-box"
+            hasError={hasErrorUsername}
+            errorMessage={errorMessageUsername}
+            value={username}
+            onChangeText={this.onTextChange}
+            keyboardType="email-address"
+            disabled={loading}
+          />
+
+          <FloatingInput
+            name={"password"}
+            placeHolder={translate("label_password")}
+            iconName="lock"
+            hasError={hasErrorPassword}
+            errorMessage={errorMessagePassword}
+            value={password}
+            onChangeText={this.onTextChange}
+            hasSecureTextEntry={true}
+          />
+        </View>
+        <View style={styles.forgotPasswordContainer}>
+          <CheckBoxInput
+            isChecked={isRememberMe}
+            label={translate("label_remember_me")}
+            onCheckBoxClick={this.onRememberMeClicked}
+          />
+          <Button
+            transparent
+            title="Forgot Password?"
+            style={styles.buttonStyle}
+            onPress={() => this.forgotPasswordClicked()}
+          >
+            <Text style={{ justifyContent: "center" }}>
+              {translate("label_forgot_password")}
+            </Text>
+          </Button>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            primary
+            rounded
+            block
+            title="Sign in"
+            onPress={() => this.signInClicked()}
+          >
             <Text>{translate("label_sign_in")}</Text>
-            <View>
-              <FloatingInput
-                name={"username"}
-                placeHolder={translate("label_username")}
-                iconName="account-box"
-                hasError={hasErrorUsername}
-                errorMessage={errorMessageUsername}
-                value={username}
-                onChangeText={this.onTextChange}
-                keyboardType="email-address"
-                disabled={loading}
-              />
-
-              <FloatingInput
-                name={"password"}
-                placeHolder={translate("label_password")}
-                iconName="lock"
-                hasError={hasErrorPassword}
-                errorMessage={errorMessagePassword}
-                value={password}
-                onChangeText={this.onTextChange}
-                hasSecureTextEntry={true}
-              />
-            </View>
-            <View style={styles.forgotPasswordContainer}>
-              <CheckBox
-                isChecked={isRememberMe}
-                label={translate("label_remember_me")}
-                onCheckBoxClick={this.onRememberMeClicked}
-              />
-              <Button
-                transparent
-                title="Forgot Password?"
-                style={styles.buttonStyle}
-                onPress={() => this.forgotPasswordClicked()}
-              >
-                <Text style={{ justifyContent: "center" }}>
-                  {translate("label_forgot_password")}
-                </Text>
-              </Button>
-            </View>
-
-            <Button
-              primary
-              rounded
-              bordered
-              title="Sign in"
-              style={styles.buttonStyle}
-              onPress={() => this.signInClicked()}
-            >
-              <Text>{translate("label_sign_in")}</Text>
-            </Button>
-            <Text>Not an User? </Text>
-            <Button
-              primary
-              rounded
-              bordered
-              title="Sign up"
-              style={styles.buttonStyle}
-              onPress={() => this.redirectTo("SignUp")}
-            >
-              <Text>{translate("label_sign_up")}</Text>
-            </Button>
-          </Card>
-        </Content>
-        {loading && (
-          <View style={styles.loading}>
-            <ActivityIndicator animating={true} size="large" />
-          </View>
-        )}
-      </Container>
-      </Root>
+          </Button>
+          <Text>{translate("label_not_a_member")}</Text>
+          <Button
+            primary
+            rounded
+            block
+            title="Sign up"
+            onPress={() => this.redirectTo("SignUp")}
+          >
+            <Text>{translate("label_sign_up")}</Text>
+          </Button>
+        </View>
+      </ScrollView>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ signInAction }, dispatch);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ signInAction, resetAction }, dispatch);
 };
 
 const mapConnectStateToProps = ({ signIn }) => {
-  const { message, isSignInSuccess, authStatus } = signIn;
-  return { message, isSignInSuccess, authStatus };
+  const { message, isSignInSuccess, authStatus, loading } = signIn;
+  return { message, isSignInSuccess, authStatus, loading };
 };
 export default connect(
   mapConnectStateToProps,
   mapDispatchToProps
-)(SignInScreen);
+)(AuthWrapper(SignInScreen));
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ececec",
+
+    alignItems: "center",
+    backgroundColor: "transparent",
+    minHeight: "50%",
+    padding: 10,
+  },
+  inputContainer: {
+    flex: 0.5,
+    marginBottom: 25,
     justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-    flexWrap: "wrap"
   },
-  loading: {
-    backgroundColor: "#77777788",
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  cardStyle: {
-    justifyContent: "space-around",
-    padding: 10,
-    width: "100%",
-    alignItems: "center",
-    minHeight: "60%"
-  },
-  buttonStyle: {
-    alignSelf: "stretch",
-    justifyContent: "center"
+
+  spinnerStyle: {
+    color: Colors.primary,
   },
   forgotPasswordContainer: {
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 10
-  }
+    marginTop: 10,
+  },
+  buttonContainer: {
+    marginTop: 15,
+    width: "100%",
+    flex: 0.3,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  logoContainer: {
+    marginTop: 50,
+    flex: 0.4,
+    alignItems: "center",
+  },
 });

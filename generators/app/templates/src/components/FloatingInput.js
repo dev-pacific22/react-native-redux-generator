@@ -16,9 +16,10 @@ class FloatingInput extends Component {
       errorMessage,
       hasSecureTextEntry,
       value,
-      key, name
+      key,
+      name,
     } = this.props;
-    
+
     return (
       <React.Fragment>
         <Item floatingLabel error={hasError} style={styles.inputElement}>
@@ -32,9 +33,9 @@ class FloatingInput extends Component {
           <Input
             secureTextEntry={hasSecureTextEntry}
             style={styles.inputPaddingLeft}
-            onChangeText={text => this.props.onChangeText(text, name)}
+            onChangeText={(text) => this.props.onChangeText(text, name)}
             value={value}
-            autoCapitalize = 'none'
+            autoCapitalize="none"
           />
         </Item>
         {hasError ? (
@@ -47,7 +48,7 @@ class FloatingInput extends Component {
   }
 }
 
-export default FloatingInput;
+export { FloatingInput };
 
 const styles = StyleSheet.create({
   inputElement: {
@@ -55,14 +56,14 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingLeft: 0,
     paddingRight: 0,
-    alignSelf: "center"
+    alignSelf: "center",
   },
   iconStyle: {
     fontSize: 16,
-    color: "black"
+    color: "black",
   },
   placeHolderStyle: {
-    marginLeft: 5
+    marginLeft: 5,
   },
   errorMessageStyle: {
     alignSelf: "flex-start",
@@ -70,9 +71,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingTop: 5,
     paddingLeft: 5,
-    paddingRight: 5
+    paddingRight: 5,
   },
   inputPaddingLeft: {
-    paddingLeft: 10
-  }
+    paddingLeft: 10,
+  },
 });
