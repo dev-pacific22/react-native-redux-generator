@@ -16,8 +16,13 @@ export const getRequestApi = async (
   URL,
   dispatch,
   actionSuccess,
-  actionFail
+  actionFail,
+  actionLoading,
+  isLoadingRequired = false,
 ) => {
+  if (isLoadingRequired) {
+    dispatch({ type: actionLoading });
+  }
   let headers = await configHeader();
   return axios
     .get(URL, headers)
@@ -35,8 +40,14 @@ export const postRequestApi = async (
     params,
     dispatch,
     actionSuccess,
-    actionFail
+    actionFail,
+    actionLoading,
+    isLoadingRequired = false,
   ) => {
+    if (isLoadingRequired) {
+      dispatch({ type: actionLoading });
+    }
+    
     const headers = await configHeader();
     return axios
       .post(URL, params, headers)
