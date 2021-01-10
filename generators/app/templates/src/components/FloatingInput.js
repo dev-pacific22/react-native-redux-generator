@@ -2,51 +2,45 @@ import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import { Item, Icon, Label, Input } from "native-base";
 
-class FloatingInput extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const FloatingInput = (props) => {
+  const {
+    placeHolder,
+    hasError,
+    iconName,
+    errorMessage,
+    hasSecureTextEntry,
+    value,
+    key,
+    name,
+  } = props;
 
-  render() {
-    const {
-      placeHolder,
-      hasError,
-      iconName,
-      errorMessage,
-      hasSecureTextEntry,
-      value,
-      key,
-      name,
-    } = this.props;
-
-    return (
-      <React.Fragment>
-        <Item floatingLabel error={hasError} style={styles.inputElement}>
-          <Icon
-            active
-            type="MaterialIcons"
-            name={iconName}
-            style={styles.iconStyle}
-          />
-          <Label style={styles.placeHolderStyle}>{placeHolder}</Label>
-          <Input
-            secureTextEntry={hasSecureTextEntry}
-            style={styles.inputPaddingLeft}
-            onChangeText={(text) => this.props.onChangeText(text, name)}
-            value={value}
-            autoCapitalize="none"
-          />
-        </Item>
-        {hasError ? (
-          <Label style={styles.errorMessageStyle}>{errorMessage}</Label>
-        ) : (
-          <Label />
-        )}
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      <Item floatingLabel error={hasError} style={styles.inputElement}>
+        <Icon
+          active
+          type="MaterialIcons"
+          name={iconName}
+          style={styles.iconStyle}
+        />
+        <Label style={styles.placeHolderStyle}>{placeHolder}</Label>
+        <Input
+          {...props}
+          secureTextEntry={hasSecureTextEntry}
+          style={styles.inputPaddingLeft}
+          onChangeText={(text) => props.onChangeText(text, name)}
+          value={value}
+          autoCapitalize="none"
+        />
+      </Item>
+      {hasError ? (
+        <Label style={styles.errorMessageStyle}>{errorMessage}</Label>
+      ) : (
+        <Label />
+      )}
+    </React.Fragment>
+  );
+};
 
 export { FloatingInput };
 
