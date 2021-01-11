@@ -1,42 +1,39 @@
-import { createAppContainer, createSwitchNavigator } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
-import SignInScreen from "../screens/SignInScreen.js";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import SignInScreen from "../screens/SignInScreen";
 import SignUpScreen from "../screens/SignUpScreen";
-
 import DashboardScreen from "../screens/DashboardScreen";
+const Stack = createStackNavigator();
 
-const AuthNavigator = createStackNavigator(
-  {
-    SignIn: SignInScreen,
-    SignUp: SignUpScreen,
-  },
-  {
-    initialRouteParams: "SignIn",
-    headerMode: "none",
-  }
-);
+const AppNavigator = () => {
+  const AuthStack = () => {
+    return (
+      <Stack.Navigator name="Auth" initialRouteName="SignIn" headerMode="none">
+        <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+      </Stack.Navigator>
+    );
+  };
+  const DashboardStack = () => {
+    return (
+      <Stack.Navigator
+        name="DashboardStack"
+        initialRouteName="Dashboard"
+        headerMode="none"
+      >
+        <Stack.Screen name="Dashboard" component={DashboardScreen} />
+      </Stack.Navigator>
+    );
+  };
+  return (
+    <NavigationContainer>
+      <Stack.Navigator headerMode="none">
+        <Stack.Screen name="Auth" component={AuthStack} />
+        <Stack.Screen name="Dashboard" component={DashboardStack} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
-const DashboardNavigator = createStackNavigator(
-  {
-    Dashboard: DashboardScreen,
-  },
-  {
-    initialRouteParams: "Dashboard",
-    headerMode: "none",
-  }
-);
-
-const AppNavigator = createSwitchNavigator(
-  {
-    Auth: AuthNavigator,
-    Dashboard: DashboardNavigator,
-  },
-  {
-    initialRouteParams: "Auth",
-    headerMode: "none",
-  }
-);
-
-const AppContainer = createAppContainer(AppNavigator);
-
-export default AppContainer;
+export default AppNavigator;

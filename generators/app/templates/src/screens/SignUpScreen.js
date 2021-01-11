@@ -1,20 +1,28 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { AuthWrapper } from "../hoc/AuthHOC";
+import { resetAction } from "../action/SignInAction";
 
-class SignUpScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+const SignUpScreen = () => {
+  return (
+    <View>
+      <Text>Sign Up Screen</Text>
+    </View>
+  );
+};
 
-  render() {
-    return (
-      <View>
-        <Text> SignUpScreen </Text>
-      </View>
-    );
-  }
-}
+const styles = StyleSheet.create({});
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ resetAction }, dispatch);
+};
 
-export default SignUpScreen;
+const mapConnectStateToProps = ({ signIn }) => {
+  const { message, authStatus, loading } = signIn;
+  return { message, authStatus, loading };
+};
+export default connect(
+  mapConnectStateToProps,
+  mapDispatchToProps
+)(AuthWrapper(SignUpScreen));

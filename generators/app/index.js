@@ -1,6 +1,8 @@
 const Generator = require("yeoman-generator");
 
-module.exports = class extends Generator {
+module.exports = class extends (
+  Generator
+) {
   constructor(args, options) {
     super(args, options);
   }
@@ -43,13 +45,16 @@ module.exports = class extends Generator {
     await this.yarnInstall(
       [
         "babel-preset-react-native-stage-0",
-        "react-navigation",
-        "react-navigation-stack",
-        "react-native-screens",
+        // React Navigation dependencies.
+        "@react-navigation/native",
+        "@react-navigation/stack",
+        "react-native-reanimated",
         "react-native-gesture-handler",
-        "react-native-safe-area-view",
+        "react-native-screens",
         "react-native-safe-area-context",
         "@react-native-community/masked-view",
+        // "react-native-safe-area-view",
+
         "react-native-vector-icons",
         "i18n-js",
         "lodash",
