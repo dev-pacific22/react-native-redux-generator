@@ -4,8 +4,8 @@ import {
   SIGN_IN_FAILED,
   SIGN_IN_RESET
 } from "../action/types";
-import { translate } from "../locales";
-import { CONSTANTS, AUTH_STATUS } from "../utils";
+import { translate } from "../../locales";
+import { CONSTANTS, AUTH_STATUS } from "../../utils";
 
 const initialState = {
   message: "I am from reducers and initial state",
