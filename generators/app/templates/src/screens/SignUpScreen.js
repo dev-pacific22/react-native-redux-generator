@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { AuthWrapper } from "../hoc/AuthHOC";
-import { resetAction } from "../action/SignInAction";
+import { resetAction } from "../redux/action/AuthAction";
 
 const SignUpScreen = () => {
   return (
@@ -18,9 +18,9 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ resetAction }, dispatch);
 };
 
-const mapConnectStateToProps = ({ signIn }) => {
-  const { message, authStatus, loading } = signIn;
-  return { message, authStatus, loading };
+const mapConnectStateToProps = ({ auth }) => {
+  const { message, authStatus } = auth;
+  return { message, authStatus };
 };
 export default connect(
   mapConnectStateToProps,

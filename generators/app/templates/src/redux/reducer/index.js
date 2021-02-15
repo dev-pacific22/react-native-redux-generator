@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import SignInReducers from "./SignInReducers";
+import AppReducer from "./AppReducer";
+import AuthReducers from "./AuthReducer";
 
 export default combineReducers({
-  signIn: SignInReducers
+  app: AppReducer,
+  auth: AuthReducers,
 });

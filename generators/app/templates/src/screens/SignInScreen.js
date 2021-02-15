@@ -7,7 +7,7 @@ import { bindActionCreators } from "redux";
 import validator from "validator";
 import { FloatingInput, CheckBoxInput, CustomAlert } from "../components";
 import { AuthWrapper } from "../hoc/AuthHOC";
-import { signInAction, resetAction } from "../action/SignInAction";
+import { signInAction, resetAction } from "../redux/action/AuthAction";
 import { translate } from "../locales/index";
 import { assets } from "../assets";
 import { CONSTANTS, AUTH_STATUS, toastService, Colors } from "../utils";
@@ -84,7 +84,6 @@ const SignInScreen = ({
             message={message ? message : translate("message_sign_in_success")}
             confirmText={translate("label_button_ok")}
             onConfirmPressed={() => {
-              resetAction();
               navigation.navigate("Dashboard");
             }}
           />
@@ -194,8 +193,9 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ signInAction, resetAction }, dispatch);
 };
 
-const mapConnectStateToProps = ({ signIn }) => {
-  const { message, isSignInSuccess, authStatus, loading } = signIn;
+const mapConnectStateToProps = ({ auth, app }) => {
+  const { message, isSignInSuccess, authStatus } = auth;
+  const { loading } = app;
   return { message, isSignInSuccess, authStatus, loading };
 };
 export default connect(
