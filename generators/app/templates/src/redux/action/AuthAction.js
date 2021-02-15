@@ -29,5 +29,5 @@ export const signInAction = (username, password) => {
 };
 
 export const resetAction = () => {
-  return { type: SIGN_IN_RESET };
+  return { type: ON_LOADING_STOP };
 };

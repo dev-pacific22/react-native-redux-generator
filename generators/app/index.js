@@ -1,8 +1,6 @@
 const Generator = require("yeoman-generator");
 
-module.exports = class extends (
-  Generator
-) {
+module.exports = class extends Generator {
   constructor(args, options) {
     super(args, options);
   }
@@ -63,6 +61,8 @@ module.exports = class extends (
         "react-redux",
         "redux",
         "redux-thunk",
+        "redux-logger",
+        "redux-devtools-extension",
         "axios", // network dependencies
         // The UI dependencies
         "native-base",
