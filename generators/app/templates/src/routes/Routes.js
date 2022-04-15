@@ -9,7 +9,11 @@ const Stack = createStackNavigator();
 const AppNavigator = () => {
   const AuthStack = () => {
     return (
-      <Stack.Navigator name="Auth" initialRouteName="SignIn" headerShown={true}>
+      <Stack.Navigator
+        name="Auth"
+        initialRouteName="SignIn"
+        screenOptions={{ headerShown: false }}
+      >
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
       </Stack.Navigator>
@@ -28,7 +32,7 @@ const AppNavigator = () => {
   };
   return (
     <NavigationContainer>
-      <Stack.Navigator headerShown={true}>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Auth" component={AuthStack} />
         <Stack.Screen name="Dashboard" component={DashboardStack} />
       </Stack.Navigator>
