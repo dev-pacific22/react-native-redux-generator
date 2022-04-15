@@ -1,25 +1,24 @@
 import React, { Component } from "react";
-import { StyleSheet, ImageBackground } from "react-native";
-import { Container, View, Box } from "native-base";
+import { StyleSheet, ImageBackground, View } from "react-native";
 import { assets } from "../assets";
 
 const AuthWrapper = (WrappedComponents) => {
   return class AuthHOC extends Component {
     render() {
       return (
-        <Box>
+        <View>
           <ImageBackground
             style={styles.imageContainer}
             imageStyle={{ opacity: 0.04 }}
             source={assets.image_background}
           >
-            <Container style={[styles.container]}>
+            <View style={[styles.container]}>
               <View style={styles.cardStyle}>
                 <WrappedComponents {...this.props} />
               </View>
-            </Container>
+            </View>
           </ImageBackground>
-        </Box>
+        </View>
       );
     }
   };

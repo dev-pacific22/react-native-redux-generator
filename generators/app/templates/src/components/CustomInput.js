@@ -9,7 +9,7 @@ const CustomInput = (props) => {
     placeHolder,
     hasError,
     iconName,
-    errorMessage,
+    errorMessage = "Please enter value",
     hasSecureTextEntry,
     value,
     key,
@@ -20,7 +20,7 @@ const CustomInput = (props) => {
   return (
     <React.Fragment>
       <Stack
-        space={34}
+        space={2}
         w={width ? width : "100%"}
         alignItems="center"
         p="2"
@@ -29,7 +29,7 @@ const CustomInput = (props) => {
         <Input
           w={{
             base: "100%",
-            md: "20%",
+            md: "10%",
           }}
           p="3"
           size="lg"
@@ -47,12 +47,10 @@ const CustomInput = (props) => {
             <Icon style={styles.iconStyle} name={iconName} size={16} solid />
           }
         />
+        {hasError && (
+          <Text style={styles.errorMessageStyle}>{errorMessage}</Text>
+        )}
       </Stack>
-      {hasError ? (
-        <Text style={styles.errorMessageStyle}>{errorMessage}</Text>
-      ) : (
-        <Text />
-      )}
     </React.Fragment>
   );
 };
@@ -79,8 +77,9 @@ const styles = StyleSheet.create({
     color: Colors.error,
     fontSize: 14,
     paddingTop: 0,
-    paddingLeft: 15,
-    paddingRight: 15,
+    paddingLeft: 5,
+    paddingRight: 5,
+    marginTop: 0,
   },
   inputPaddingLeft: {
     paddingLeft: 10,
