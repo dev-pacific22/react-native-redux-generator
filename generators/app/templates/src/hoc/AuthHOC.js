@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { StyleSheet, ImageBackground } from "react-native";
-import { Container, View, Root, Toast } from "native-base";
+import { Container, View, Box } from "native-base";
 import { assets } from "../assets";
 
 const AuthWrapper = (WrappedComponents) => {
   return class AuthHOC extends Component {
     render() {
       return (
-        <Root>
+        <Box>
           <ImageBackground
             style={styles.imageContainer}
             imageStyle={{ opacity: 0.04 }}
@@ -19,7 +19,7 @@ const AuthWrapper = (WrappedComponents) => {
               </View>
             </Container>
           </ImageBackground>
-        </Root>
+        </Box>
       );
     }
   };

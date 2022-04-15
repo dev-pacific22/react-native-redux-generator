@@ -1,12 +1,16 @@
 import React from "react";
-import { ListItem, CheckBox, Text } from "native-base";
+import { HStack, Checkbox } from "native-base";
 
 const CheckBoxInput = ({ isChecked, onCheckBoxClick, label }) => {
   return (
-    <ListItem noBorder onPress={() => onCheckBoxClick()}>
-      <CheckBox checked={isChecked} />
-      <Text> {label}</Text>
-    </ListItem>
+    <HStack space={6}>
+      <Checkbox
+        onChange={() => onCheckBoxClick()}
+        value={label}
+        accessibilityLabel={label}
+        isChecked={isChecked}
+      />
+    </HStack>
   );
 };
 

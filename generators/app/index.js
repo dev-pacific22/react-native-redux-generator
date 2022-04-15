@@ -66,6 +66,7 @@ module.exports = class extends Generator {
         "axios", // network dependencies
         // The UI dependencies
         "native-base",
+        "react-native-svg",
         "validator",
         "react-native-loading-spinner-overlay",
         "react-native-modal",
@@ -116,7 +117,8 @@ module.exports = class extends Generator {
   // last stage
   end() {
     if (this.answers.theme == "y") {
-      this.spawnCommand("node", ["node_modules/native-base/ejectTheme.js"]);
+      this.log("Added themes... 🤖");
+      // this.spawnCommand("node", ["node_modules/native-base/ejectTheme.js"]);
     }
     this.log("Bye... 👋");
   }
