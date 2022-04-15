@@ -1,4 +1,4 @@
 export * from "./CheckBoxInput";
-export * from "./FloatingInput";
+export * from "./CustomInput";
 export * from "./CustomAlert";
 export * from "./CustomHeader";
