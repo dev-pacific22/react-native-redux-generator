@@ -107,6 +107,7 @@ module.exports = class extends Generator {
     this.fs.copy(this.templatePath("**/*.json"), this.destinationPath(""));
     this.fs.copy(this.templatePath("**/*.png"), this.destinationPath(""));
     this.fs.copy(this.templatePath("**/*.jpg"), this.destinationPath(""));
+    this.fs.copy(this.templatePath("**/*.ttf"), this.destinationPath(""));
     // this.fs.copy(this.templatePath('**/*.gif'), this.destinationPath(''));
     // this.fs.copyTpl(
     //   this.templatePath('babelrc'),
@@ -120,6 +121,13 @@ module.exports = class extends Generator {
       this.log("Added themes... 🤖");
       // this.spawnCommand("node", ["node_modules/native-base/ejectTheme.js"]);
     }
+    // Moving config file to the app root directory and executing link command
+    this.spawnCommand("pwd");
+    this.spawnCommand("mv", [
+      "src/react-native.config.js",
+      "react-native.config.js",
+    ]);
+    this.spawnCommand("npx", ["react-native", "link"]);
     this.log("Bye... 👋");
   }
 };
