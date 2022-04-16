@@ -1,9 +1,16 @@
+/*
+ *Using roboto as default font for the app if you want to change it.
+ * add font files to assets/fonts
+ * map that files in FONTS object
+ * run 'npx react-native link' command and run app again
+ */
+
 const FONTS = {
-  FONT_LIGHT: "Abel-Regular",
-  FONT_REGULAR: "Oswald-Regular",
-  FONT_MEDIUM: "Oswald-Medium",
-  FONT_BOLD: "Oswald-Bold",
-  FONT_SEMI_BOLD: "Oswald-SemiBold",
+  FONT_LIGHT: "roboto-light",
+  FONT_REGULAR: "roboto-regular",
+  FONT_MEDIUM: "roboto-medium",
+  FONT_BOLD: "roboto-black",
+  FONT_SEMI_BOLD: "roboto-bold",
 };
 
 const FONT_SIZE = {
@@ -17,7 +24,6 @@ const FONT_SIZE = {
   SUB_HEADER: 24,
   PAGE_SUB_HEADER: 28,
   PAGE_HEADER: 32,
-  BOTTOM_TAB_LABEL: 10,
 };
 
 const MATRIX = {
@@ -34,7 +40,5 @@ const MATRIX = {
   TEXT_FIELD_HEIGHT: 40,
   MARGIN: 25,
   PADDING_HORIZONTAL: 15,
-  NEW_TEAM_PADDING_HOR: 20,
-  MARGIN_FOR_FULL_WIDTH_TEXT: 10,
 };
 export { FONTS, FONT_SIZE, MATRIX };

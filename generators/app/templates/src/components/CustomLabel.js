@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { translate } from "../locales";
 import { StyleSheet, Text, View, Image } from "react-native";
-import { CustomInput, Button } from "../components";
+import { CustomInput, Button, LabelText } from "../components";
 import { assets } from "../assets";
 import { Colors } from "../utils";
 
@@ -26,7 +26,10 @@ const SignInScreen = () => {
             source={assets.app_logo}
             style={styles.logoStyle}
           />
-          <Text style={styles.logoTextStyle}>{translate("label_sign_in")}</Text>
+          <LabelText
+            style={styles.logoTextStyle}
+            label={translate("label_sign_in")}
+          />
         </View>
 
         <View style={styles.inputContainer}>
@@ -80,7 +83,6 @@ const styles = StyleSheet.create({
   logoTextStyle: {
     color: Colors.primary,
     fontSize: 20,
-    fontWeight: "700",
   },
   inputContainer: {
     flexDirection: "column",
