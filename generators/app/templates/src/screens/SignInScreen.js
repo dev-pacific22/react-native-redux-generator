@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { translate } from "../locales";
 import { StyleSheet, Text, View, Image } from "react-native";
-import { CustomInput, Button } from "../components";
+import { CustomInput, Button, LabelText } from "../components";
 import { assets } from "../assets";
-import { Colors } from "../utils";
+import { Colors, MATRIX } from "../utils";
 
 const SignInScreen = () => {
   const [userName, setUserName] = useState();
@@ -26,7 +26,10 @@ const SignInScreen = () => {
             source={assets.app_logo}
             style={styles.logoStyle}
           />
-          <Text style={styles.logoTextStyle}>{translate("label_sign_in")}</Text>
+          <LabelText
+            style={styles.logoTextStyle}
+            label={translate("label_sign_in")}
+          />
         </View>
 
         <View style={styles.inputContainer}>
@@ -46,9 +49,15 @@ const SignInScreen = () => {
             iconName={"lock"}
           />
           <Button
-            outline
+            style={styles.buttonStyle}
             onPress={() => onNextClick()}
             buttonLabel={translate("label_sign_in")}
+          />
+          <Button
+            outline
+            style={styles.buttonStyle}
+            onPress={() => onNextClick()}
+            buttonLabel={translate("label_sign_up")}
           />
         </View>
       </View>
@@ -80,7 +89,6 @@ const styles = StyleSheet.create({
   logoTextStyle: {
     color: Colors.primary,
     fontSize: 20,
-    fontWeight: "700",
   },
   inputContainer: {
     flexDirection: "column",
@@ -94,5 +102,9 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 2,
     backgroundColor: Colors.secondaryTextColor,
+  },
+  buttonStyle: {
+    marginHorizontal: MATRIX.MARGIN,
+    marginVertical: 20,
   },
 });

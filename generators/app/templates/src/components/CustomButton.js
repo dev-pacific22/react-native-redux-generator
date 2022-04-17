@@ -22,16 +22,17 @@ const Button = (props) => {
   } = props;
   return (
     <TouchableOpacity
+      {...props}
       style={[
         defaultStyles.buttonStyle,
+        disabled && defaultStyles.disabledStyle,
         lights && defaultStyles.lightButtonStyle,
-        style,
         lights && disabled ? defaultStyles.lightDisableButtonStyle : {},
         transparent ? defaultStyles.transparentStyle : {},
         outline && defaultStyles.outlineStyle,
+        style,
       ]}
       onPress={() => onPress()}
-      {...props}
     >
       {iconLeft && (
         <Image source={iconLeftName} style={defaultStyles.leftIconStyle} />
@@ -40,7 +41,7 @@ const Button = (props) => {
         style={[
           defaultStyles.textStyle,
           lights && defaultStyles.lightTextStyle,
-          lights && transparent ? defaultStyles.lightTransparentTextStyle : {},
+          lights ? defaultStyles.lightTransparentTextStyle : {},
           { ...labelStyle },
           disabled ? defaultStyles.disableTextStyle : {},
           outline ? defaultStyles.outlineTextStyle : {},
@@ -77,7 +78,7 @@ const defaultStyles = StyleSheet.create({
     alignItems: "center",
   },
   disableTextStyle: {
-    color: Colors.buttonTextDisable,
+    color: Colors.secondaryTextColor,
   },
   textStyle: {
     fontSize: FONT_SIZE.BUTTON_TEXT,
@@ -95,17 +96,17 @@ const defaultStyles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   lightButtonStyle: {
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.transparent,
   },
   lightTextStyle: {
-    color: Colors.otpTextColor,
+    color: Colors.primaryTextColor,
   },
   lightDisableButtonStyle: {
-    backgroundColor: Colors.buttonLightDisable,
+    backgroundColor: Colors.secondaryTextColor,
     borderRadius: 0,
   },
   lightTransparentTextStyle: {
-    color: Colors.primaryTextColor,
+    color: Colors.primary,
   },
   outlineStyle: {
     borderWidth: 1,
@@ -120,6 +121,9 @@ const defaultStyles = StyleSheet.create({
     height: 15,
     width: 15,
     marginEnd: 10,
+  },
+  disabledStyle: {
+    backgroundColor: Colors.darkGrey,
   },
 });
 
