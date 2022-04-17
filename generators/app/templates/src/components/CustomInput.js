@@ -3,6 +3,7 @@ import { StyleSheet, Text } from "react-native";
 import { Stack, Input } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { Colors } from "../utils/Colors";
+import { MATRIX } from "../utils";
 
 const CustomInput = (props) => {
   const {
@@ -15,6 +16,8 @@ const CustomInput = (props) => {
     key,
     name,
     width,
+    containerStyle,
+    inputStyle,
   } = props;
 
   return (
@@ -25,6 +28,7 @@ const CustomInput = (props) => {
         alignItems="center"
         p="2"
         m="1"
+        style={containerStyle}
       >
         <Input
           w={{
@@ -34,15 +38,15 @@ const CustomInput = (props) => {
           p="3"
           size="lg"
           borderWidth="0.5"
-          borderRadius={4}
+          {...props}
+          borderRadius={MATRIX.BORDER_RADIUS}
           borderColor={Colors.primaryTextColor}
           placeholder={placeHolder}
           secureTextEntry={hasSecureTextEntry}
-          style={styles.inputPaddingLeft}
+          style={[styles.inputPaddingLeft, inputStyle]}
           onChangeText={(text) => props.onChangeText(text, name)}
           value={value}
           autoCapitalize="none"
-          {...props}
           InputLeftElement={
             <Icon style={styles.iconStyle} name={iconName} size={16} solid />
           }

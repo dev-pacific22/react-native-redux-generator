@@ -34,6 +34,7 @@ const SignInScreen = () => {
 
         <View style={styles.inputContainer}>
           <CustomInput
+            containerStyle={styles.inputContainerStyle}
             name="username"
             onChangeText={onUserNameChange}
             width={"75%"}
@@ -41,6 +42,7 @@ const SignInScreen = () => {
             iconName={"user"}
           />
           <CustomInput
+            containerStyle={styles.inputContainerStyle}
             name="password"
             onChangeText={onPasswordChange}
             width={"75%"}
@@ -106,5 +108,9 @@ const styles = StyleSheet.create({
   buttonStyle: {
     marginHorizontal: MATRIX.MARGIN,
     marginVertical: 20,
+  },
+  inputContainerStyle: {
+    marginTop: 15,
+    marginBottom: 15,
   },
 });
