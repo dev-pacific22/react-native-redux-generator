@@ -1,28 +1,34 @@
-import React, { Component } from "react";
-import { createStore, applyMiddleware } from "redux";
+import React from "react";
+import { SafeAreaView, StyleSheet } from "react-native";
 import { Provider } from "react-redux";
-import { StyleProvider } from "native-base";
-import ReduxThunk from "redux-thunk";
-import combineReducers from "./reducer";
+import { NativeBaseProvider } from "native-base";
+import getStore from "./redux";
 import AppContainer from "./routes/Routes";
 import { setI18nConfig } from "./locales";
-import getTheme from "../native-base-theme/components";
-import platform from "../native-base-theme/variables/platform";
+import { Colors } from "./utils/Colors";
 
-const store = createStore(combineReducers, {}, applyMiddleware(ReduxThunk));
+import { LogBox } from "react-native";
+LogBox.ignoreLogs(["new NativeEventEmitter"]);
+
+const store = getStore();
 setI18nConfig();
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-  }
 
-  render() {
-    return (
-      <Provider store={store}>
-        <StyleProvider style={getTheme(platform)}>
+const App = () => {
+  return (
+    <Provider store={store}>
+      <NativeBaseProvider>
+        <SafeAreaView style={[styles.container]}>
           <AppContainer />
-        </StyleProvider>
-      </Provider>
-    );
-  }
-}
+        </SafeAreaView>
+      </NativeBaseProvider>
+    </Provider>
+  );
+};
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.white,
+    paddingTop: 0,
+  },
+});
+export default App;
