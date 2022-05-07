@@ -1,34 +1,62 @@
 import React from "react";
-import { Header, Left, Right, Button, Icon, Body, Title } from "native-base";
+import { StyleSheet } from "react-native";
+import { StatusBar, Box, HStack, IconButton, Text } from "native-base";
 import PropTypes from "prop-types";
+import Icon from "react-native-vector-icons/FontAwesome5";
+import { Colors } from "../utils";
 
 const CustomHeader = ({
   title,
   isLeft = true,
-  leftIcon = "menu",
+  leftIcon = "bars",
   leftButtonHandler,
   isRight,
-  rightIcon = "menu",
+  rightIcon = "ellipsis-v",
   rightButtonHandler,
 }) => (
-  <Header style={{ justifyContent: "space-between" }}>
-    <Left>
-      {isLeft && (
-        <Button transparent onPress={() => leftButtonHandler()}>
-          <Icon name={leftIcon} />
-        </Button>
-      )}
-    </Left>
-    <Body>
-      <Title>{title}</Title>
-    </Body>
-    <Right>
-      <Button transparent onPress={() => rightButtonHandler()}>
-        {isRight && <Icon name={rightIcon} />}
-      </Button>
-    </Right>
-  </Header>
+  <>
+    <HStack
+      bg={Colors.primary}
+      px="1"
+      py="2"
+      justifyContent="space-between"
+      alignItems="center"
+      w="100%"
+    >
+      <HStack alignItems="center">
+        {isLeft && (
+          <IconButton
+            onPress={leftButtonHandler}
+            icon={
+              <Icon style={styles.iconStyle} name={leftIcon} size={16} solid />
+            }
+          />
+        )}
+        <Text color="white" fontSize="20" fontWeight="bold">
+          {title}
+        </Text>
+      </HStack>
+      <HStack>
+        {isRight && (
+          <IconButton
+            onPress={rightButtonHandler}
+            icon={
+              <Icon style={styles.iconStyle} name={rightIcon} size={16} solid />
+            }
+          />
+        )}
+      </HStack>
+    </HStack>
+  </>
 );
+
+const styles = StyleSheet.create({
+  iconStyle: {
+    padding: 3,
+    fontSize: 18,
+    color: "white",
+  },
+});
 
 export { CustomHeader };
 CustomHeader.propTypes = {
