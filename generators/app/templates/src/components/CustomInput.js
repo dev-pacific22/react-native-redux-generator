@@ -18,6 +18,10 @@ const CustomInput = (props) => {
     width,
     containerStyle,
     inputStyle,
+    type,
+    showPassword,
+    togglePassword,
+    disabled = false,
   } = props;
 
   return (
@@ -26,29 +30,40 @@ const CustomInput = (props) => {
         space={2}
         w={width ? width : "100%"}
         alignItems="center"
-        p="2"
-        m="1"
+        p="1"
+        m="5"
         style={containerStyle}
       >
         <Input
           w={{
             base: "100%",
-            md: "10%",
+            md: "20%",
           }}
           p="3"
           size="lg"
           borderWidth="0.5"
-          {...props}
+          autoCapitalize="none"
           borderRadius={MATRIX.BORDER_RADIUS}
           borderColor={Colors.primaryTextColor}
           placeholder={placeHolder}
-          secureTextEntry={hasSecureTextEntry}
+          secureTextEntry={hasSecureTextEntry && !showPassword}
+          isDisabled={disabled}
+          {...props}
           style={[styles.inputPaddingLeft, inputStyle]}
           onChangeText={(text) => props.onChangeText(text, name)}
           value={value}
-          autoCapitalize="none"
           InputLeftElement={
             <Icon style={styles.iconStyle} name={iconName} size={16} solid />
+          }
+          InputRightElement={
+            hasSecureTextEntry && (
+              <Icon
+                onPress={togglePassword}
+                active
+                name={showPassword ? "eye-slash" : "eye"}
+                style={styles.iconStyle}
+              />
+            )
           }
         />
         {hasError && (

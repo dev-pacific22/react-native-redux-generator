@@ -44,6 +44,7 @@ const Button = (props) => {
           lights ? defaultStyles.lightTransparentTextStyle : {},
           { ...labelStyle },
           disabled ? defaultStyles.disableTextStyle : {},
+          transparent ? defaultStyles.transparentTextStyle : {},
           outline ? defaultStyles.outlineTextStyle : {},
         ]}
       >
@@ -72,7 +73,7 @@ const defaultStyles = StyleSheet.create({
     flexDirection: "row",
     height: MATRIX.BUTTON_HEIGHT,
     backgroundColor: Colors.primary,
-    minWidth: MATRIX.BUTTON_WIDTH,
+    width: MATRIX.BUTTON_WIDTH,
     borderRadius: MATRIX.BORDER_RADIUS,
     justifyContent: "center",
     alignItems: "center",
@@ -94,6 +95,13 @@ const defaultStyles = StyleSheet.create({
   },
   transparentStyle: {
     alignSelf: "flex-start",
+    backgroundColor: Colors.transparent,
+    borderColor: Colors.transparent,
+  },
+  transparentTextStyle: {
+    color: Colors.primary,
+    fontFamily: FONTS.FONT_MEDIUM,
+    fontSize: FONT_SIZE.REGULAR,
   },
   lightButtonStyle: {
     backgroundColor: Colors.transparent,
