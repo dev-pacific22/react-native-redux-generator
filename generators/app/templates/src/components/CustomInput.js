@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { StyleSheet, Text } from "react-native";
 import { Stack, Input } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -50,7 +51,7 @@ const CustomInput = (props) => {
           isDisabled={disabled}
           {...props}
           style={[styles.inputPaddingLeft, inputStyle]}
-          onChangeText={(text) => props.onChangeText(text, name)}
+          onChangeText={(text) => props.onChangeText(text, name, type)}
           value={value}
           InputLeftElement={
             <Icon style={styles.iconStyle} name={iconName} size={16} solid />
@@ -104,3 +105,20 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
 });
+CustomInput.propTypes = {
+  placeHolder: PropTypes.string,
+  hasError: PropTypes.bool,
+  iconName: PropTypes.string,
+  errorMessage: PropTypes.string,
+  hasSecureTextEntry: PropTypes.bool,
+  value: PropTypes.string,
+  key: PropTypes.string,
+  name: PropTypes.string,
+  width: PropTypes.string,
+  containerStyle: PropTypes.object,
+  inputStyle: PropTypes.object,
+  type: PropTypes.string,
+  showPassword: PropTypes.bool,
+  togglePassword: PropTypes.func,
+  disabled: PropTypes.bool,
+};

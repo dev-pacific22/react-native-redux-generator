@@ -136,13 +136,21 @@ const defaultStyles = StyleSheet.create({
 });
 
 Button.propTypes = {
-  buttonLabel: PropTypes.string,
+  buttonLabel: PropTypes.string.isRequired,
   primary: PropTypes.bool,
   leftIcon: PropTypes.string,
   leftButtonHandler: PropTypes.func,
   isRight: PropTypes.bool,
   rightIcon: PropTypes.string,
-  rightButtonHandler: PropTypes.func,
+  iconRight: PropTypes.string,
+  iconStyles: PropTypes.object,
+  transparent: PropTypes.bool,
+  lights: PropTypes.bool,
+  outline: PropTypes.bool,
+  iconLeft: PropTypes.bool,
+  iconLeftName: PropTypes.string,
+  iconRightName: PropTypes.string,
+  onPress: PropTypes.func.isRequired,
 };
 Button.props = {
   primary: true,

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { StyleSheet, Text } from "react-native";
 import { FONT_SIZE, FONTS, Colors } from "../utils";
 
@@ -20,3 +21,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.PAGE_HEADER,
   },
 });
+LabelText.propTypes = {
+  label: PropTypes.string,
+  style: PropTypes.object,
+};
