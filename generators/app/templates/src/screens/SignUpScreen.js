@@ -74,7 +74,7 @@ const SignUpScreen = ({ navigation }) => {
     if (Object.keys(error).length > 0) {
       setErrors(error);
     } else {
-      navigation.navigate("Dashboard");
+      navigation.replace("DashboardStack");
     }
   };
 

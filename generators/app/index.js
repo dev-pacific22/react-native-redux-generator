@@ -27,14 +27,14 @@ module.exports = class extends Generator {
         type: "input",
         name: "theme",
         message: "Do you need a native base theme for your project? y/n",
-        default: "n",
+        default: "y",
       },
       {
         type: "input",
         name: "unittest",
         message:
           "Do you basic unit testing setup with jest and enzyme for your project? y/n",
-        default: "n",
+        default: "y",
       },
     ]);
   }
