@@ -8,7 +8,7 @@ import { Colors, MATRIX, showAlert } from "../utils";
 const SignInScreen = ({ navigation }) => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
-  const [userNameType, setUserNameType] = useState("phone");
+  const [userNameType, setUserNameType] = useState("email");
   const [showPassword, setShowPassword] = useState(false);
 
   const { email, phoneNumber, password } = values;
@@ -38,13 +38,13 @@ const SignInScreen = ({ navigation }) => {
     let error = {};
     if (userNameType === "email" && !(email?.trim().length > 0)) {
       error.hasErrorEmail = true;
-      error.errorMessageEmail = translate("error_valid_username");
+      error.errorMessageEmail = translate("error_valid_email");
     }
     if (userNameType === "phone" && !(phoneNumber?.trim().length > 0)) {
       error.hasErrorPhoneNumber = true;
       error.errorMessagePhoneNumber = translate("error_valid_phone_number");
     }
-    if (!(password?.trim().length > 0)) {
+    if (userNameType === "email" && !(password?.trim().length > 0)) {
       error.hasErrorPassword = true;
       error.errorMessagePassword = translate("error_valid_password");
     }
@@ -62,11 +62,11 @@ const SignInScreen = ({ navigation }) => {
   };
 
   const onSignUpClick = () => {
-    navigation.replace("SignUp");
+    navigation.navigate("SignUp");
   };
 
   const onForgotPasswordClick = () => {
-    showAlert("Comming Soon", "Yet to implement");
+    showAlert("Coming Soon", "Yet to implement");
   };
 
   const togglePhoneAndEmail = () => {
@@ -99,10 +99,11 @@ const SignInScreen = ({ navigation }) => {
                 name="email"
                 onChangeText={onTextChange}
                 width={"90%"}
-                placeholder={translate("label_username")}
-                iconName={"user"}
+                placeholder={translate("label_email")}
+                iconName={"envelope"}
                 hasError={hasErrorEmail}
                 errorMessage={errorMessageEmail}
+                value={email}
               />
               <CustomInput
                 containerStyle={styles.inputContainerStyle}
@@ -116,12 +117,13 @@ const SignInScreen = ({ navigation }) => {
                 errorMessage={errorMessagePassword}
                 showPassword={showPassword}
                 togglePassword={() => setShowPassword(!showPassword)}
+                value={password}
               />
             </>
           ) : (
             <CustomInput
               containerStyle={styles.inputContainerStyle}
-              name="phone"
+              name="phoneNumber"
               onChangeText={onTextChange}
               width={"90%"}
               placeholder={translate("label_username")}
@@ -129,6 +131,7 @@ const SignInScreen = ({ navigation }) => {
               hasError={hasErrorPhoneNumber}
               type="number"
               errorMessage={errorMessagePhoneNumber}
+              value={phoneNumber}
             />
           )}
 

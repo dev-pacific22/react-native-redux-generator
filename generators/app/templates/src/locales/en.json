@@ -1,8 +1,13 @@
 {
   "label_username": "Username",
+  "label_email": "Email",
+  "label_full_name": "Full Name",
+  "label_phone_number": "Phone Number",
   "label_password": "Password",
   "label_confirm_password": "Confirm Password",
   "error_valid_username": "Please enter valid username",
+  "error_valid_email": "Please enter valid email",
+  "error_valid_full_name": "Please enter full name",
   "error_valid_password": "Please enter valid password",
   "error_valid_phone_number": "Please enter valid phone number",
   "label_forgot_password": "Forgot Password?",
