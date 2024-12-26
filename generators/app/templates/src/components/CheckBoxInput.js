@@ -1,5 +1,6 @@
 import React from "react";
 import { HStack, Checkbox } from "native-base";
+import PropTypes from "prop-types";
 
 const CheckBoxInput = ({ isChecked, onCheckBoxClick, label }) => {
   return (
@@ -15,3 +16,9 @@ const CheckBoxInput = ({ isChecked, onCheckBoxClick, label }) => {
 };
 
 export { CheckBoxInput };
+
+CheckBoxInput.propTypes = {
+  isChecked: PropTypes.bool,
+  onCheckBoxClick: PropTypes.func,
+  label: PropTypes.string,
+};

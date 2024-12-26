@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { StyleSheet, Text, View, Button } from "react-native";
 import Modal from "react-native-modal";
 import { translate } from "../locales";
@@ -23,7 +24,7 @@ const CustomAlert = ({
           title={confirmText}
           onPress={() => {
             dismissModal(false);
-            if (onConfirmPressed) onConfirmPressed();
+            onConfirmPressed && onConfirmPressed();
           }}
         />
         <Button title={cancelText} onPress={() => dismissModal(false)} />
@@ -52,3 +53,13 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
 });
+
+CustomAlert.propTypes = {
+  message: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  showConfirmButton: PropTypes.bool,
+  confirmText: PropTypes.string,
+  onConfirmPressed: PropTypes.func,
+  showCancelButton: PropTypes.bool,
+  cancelText: PropTypes.string,
+};

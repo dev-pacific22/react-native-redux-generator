@@ -14,15 +14,15 @@ export const toastService = {
       position, // top| bottom
       textStyle: { textAlign: "center" },
       buttonText,
-      type //  default | success | warning | danger
+      type, //  default | success | warning | danger
     });
-  }
+  },
 };
 
 export const showAlert = (
   title = "Alert",
   message,
-  positiveButtonLabel,
+  positiveButtonLabel = "Okay",
   negativeButtonLabel,
   positiveCallback,
   negativeCallback,
@@ -34,13 +34,13 @@ export const showAlert = (
     [
       {
         text: positiveButtonLabel,
-        onPress: positiveCallback
+        onPress: positiveCallback,
       },
       {
         text: negativeButtonLabel,
         onPress: negativeCallback,
-        style: "cancel"
-      }
+        style: "cancel",
+      },
     ],
     { cancelable: isCancelable }
   );

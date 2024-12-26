@@ -24,7 +24,7 @@ const AppNavigator = () => {
       <Stack.Navigator
         name="DashboardStack"
         initialRouteName="Dashboard"
-        headerMode="none"
+        screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="Dashboard" component={DashboardScreen} />
       </Stack.Navigator>
@@ -34,7 +34,7 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Auth" component={AuthStack} />
-        <Stack.Screen name="Dashboard" component={DashboardStack} />
+        <Stack.Screen name="DashboardStack" component={DashboardStack} />
       </Stack.Navigator>
     </NavigationContainer>
   );
